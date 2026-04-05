@@ -88,11 +88,47 @@ INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Tecfil', 'PSL150'
 INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Mann', 'W712/94');
 INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Tecfil', 'PSL640');
 INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Fram', 'PH6017A');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Fram', 'PH10601');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Mann', 'W67/2');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Mahle', 'OX 427');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Purolator', 'PL20195');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Fram', 'PH5433');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Tecfil', 'PSL330');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Mann', 'W68/1');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Mahle', 'OC 613');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Mann', 'W712/83');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Purolator', 'PL14612');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Fram', 'PH7317');
+INSERT INTO FILTROS_EQUIVALENTES (marca, numero_peca) VALUES ('Mahle', 'OC 196');
 
 -- OEM_Filtros_Equivalentes
+-- OEM 1 - GM 26694172 (1.0 Turbo Flex - Onix / Tracker): 4 equivalentes
 INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (1, 1);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (1, 7);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (1, 8);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (1, 9);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (1, 10);
+-- OEM 2 - GM 93382720 (1.0 Flex - Onix): 3 equivalentes
 INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (2, 2);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (2, 11);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (2, 12);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (2, 13);
+-- OEM 3 - Fiat 55594651 (1.3 Firefly - Argo / Cronos): 3 equivalentes
 INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (3, 3);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (3, 11);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (3, 15);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (3, 16);
+-- OEM 4 - VW 04E115561H (1.0 MPI - Gol / Polo): 3 equivalentes
 INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (4, 4);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (4, 7);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (4, 9);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (4, 14);
+-- OEM 5 - Ford BE8Z6731AB (1.5 Flex - Ka): 2 equivalentes
 INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (5, 5);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (5, 11);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (5, 13);
+-- OEM 6 - Honda 15400-RTA-003 (2.0 Flex - Civic): 3 equivalentes
 INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (6, 6);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (6, 17);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (6, 15);
+INSERT INTO OEM_FILTROS_EQUIVALENTES (filtro_oem_id, filtro_equivalente_id) VALUES (6, 18);

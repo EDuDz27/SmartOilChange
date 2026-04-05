@@ -164,12 +164,9 @@ namespace SmartOilChange.Forms
                 txtNumeracaoOriginalValue.Text = resultado.FiltroOriginal.NumeroPeca;
             }
 
-            // Preencher Filtro Equivalente
-            if (resultado.FiltroEquivalente != null)
-            {
-                txtMarcaEquivalenteValue.Text = resultado.FiltroEquivalente.Marca;
-                txtNumeracaoEquivalenteValue.Text = resultado.FiltroEquivalente.NumeroPeca;
-            }
+            // Preencher Filtros Equivalentes
+            dgvFiltrosEquivalentes.DataSource = null;
+            dgvFiltrosEquivalentes.DataSource = resultado.FiltrosEquivalentes;
         }
 
         private void ResetModelo()
@@ -200,8 +197,7 @@ namespace SmartOilChange.Forms
             txtTipoOriginalValue.Text = "";
             txtMarcaOriginalValue.Text = "";
             txtNumeracaoOriginalValue.Text = "";
-            txtMarcaEquivalenteValue.Text = "";
-            txtNumeracaoEquivalenteValue.Text = "";
+            dgvFiltrosEquivalentes.DataSource = null;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -214,6 +210,121 @@ namespace SmartOilChange.Forms
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
+        }
+
+        private void Label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GroupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label6_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GroupBoxLubrificante_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelViscosidade_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtViscosidadeValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelEspecificacao_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtEspecificacaoValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelCapacidade_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtCapacidadeValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GroupBoxFiltroOriginal_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelTipoOriginal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtTipoOriginalValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelMarcaOriginal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtMarcaOriginalValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelNumeracaoOriginal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtNumeracaoOriginalValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GroupBoxFiltroEquivalente_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DgvFiltrosEquivalentes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

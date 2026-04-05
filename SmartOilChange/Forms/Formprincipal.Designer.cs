@@ -59,24 +59,23 @@ namespace SmartOilChange.Forms
             this.labelNumeracaoOriginal = new System.Windows.Forms.Label();
             this.txtNumeracaoOriginalValue = new System.Windows.Forms.TextBox();
             this.groupBoxFiltroEquivalente = new System.Windows.Forms.GroupBox();
-            this.labelMarcaEquivalente = new System.Windows.Forms.Label();
-            this.txtMarcaEquivalenteValue = new System.Windows.Forms.TextBox();
-            this.labelNumeracaoEquivalente = new System.Windows.Forms.Label();
-            this.txtNumeracaoEquivalenteValue = new System.Windows.Forms.TextBox();
+            this.dgvFiltrosEquivalentes = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxLubrificante.SuspendLayout();
             this.groupBoxFiltroOriginal.SuspendLayout();
             this.groupBoxFiltroEquivalente.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiltrosEquivalentes)).BeginInit();
             this.SuspendLayout();
             // 
             // BotaoConsultar
             // 
             this.BotaoConsultar.BackColor = System.Drawing.Color.DodgerBlue;
             this.BotaoConsultar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.BotaoConsultar.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BotaoConsultar.Enabled = false;
+            this.BotaoConsultar.Font = new System.Drawing.Font("Arial", 18F);
             this.BotaoConsultar.ForeColor = System.Drawing.Color.White;
-            this.BotaoConsultar.Location = new System.Drawing.Point(440, 170);
+            this.BotaoConsultar.Location = new System.Drawing.Point(440, 139);
             this.BotaoConsultar.Margin = new System.Windows.Forms.Padding(0);
             this.BotaoConsultar.Name = "BotaoConsultar";
             this.BotaoConsultar.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -84,7 +83,6 @@ namespace SmartOilChange.Forms
             this.BotaoConsultar.TabIndex = 9;
             this.BotaoConsultar.Text = "Consultar";
             this.BotaoConsultar.UseVisualStyleBackColor = false;
-            this.BotaoConsultar.Enabled = false;
             this.BotaoConsultar.Click += new System.EventHandler(this.BotaoConsultar_Click);
             // 
             // groupBox1
@@ -115,6 +113,7 @@ namespace SmartOilChange.Forms
             this.label2.Text = "Consulta Tecnica de veiculos";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label2.UseMnemonic = false;
+            this.label2.Click += new System.EventHandler(this.Label2_Click);
             // 
             // groupBox2
             // 
@@ -130,47 +129,48 @@ namespace SmartOilChange.Forms
             this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.groupBox2.Location = new System.Drawing.Point(30, 50);
+            this.groupBox2.Location = new System.Drawing.Point(30, 46);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(12);
             this.groupBox2.Size = new System.Drawing.Size(1080, 240);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
+            this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
             // 
             // comboBox4
             // 
-            this.comboBox4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(30, 130);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(293, 24);
-            this.comboBox4.TabIndex = 8;
             this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox4.Enabled = false;
+            this.comboBox4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(551, 81);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(244, 24);
+            this.comboBox4.TabIndex = 8;
             this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
             // comboBox3
             // 
-            this.comboBox3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(334, 130);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(293, 24);
-            this.comboBox3.TabIndex = 7;
             this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox3.Enabled = false;
+            this.comboBox3.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(810, 81);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(244, 24);
+            this.comboBox3.TabIndex = 7;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // comboBox2
             // 
-            this.comboBox2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(334, 80);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(293, 24);
-            this.comboBox2.TabIndex = 6;
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.Enabled = false;
+            this.comboBox2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(292, 81);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(244, 24);
+            this.comboBox2.TabIndex = 6;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label6
@@ -178,39 +178,42 @@ namespace SmartOilChange.Forms
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(30, 112);
+            this.label6.Location = new System.Drawing.Point(548, 62);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(30, 16);
             this.label6.TabIndex = 5;
             this.label6.Text = "Ano";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label6.UseMnemonic = false;
+            this.label6.Click += new System.EventHandler(this.Label6_Click_1);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(334, 112);
+            this.label5.Location = new System.Drawing.Point(807, 62);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 16);
             this.label5.TabIndex = 4;
             this.label5.Text = "Motor";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label5.UseMnemonic = false;
+            this.label5.Click += new System.EventHandler(this.Label5_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(334, 62);
+            this.label4.Location = new System.Drawing.Point(289, 62);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 16);
             this.label4.TabIndex = 3;
             this.label4.Text = "Modelo";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label4.UseMnemonic = false;
+            this.label4.Click += new System.EventHandler(this.Label4_Click);
             // 
             // label3
             // 
@@ -224,16 +227,17 @@ namespace SmartOilChange.Forms
             this.label3.Text = "Marca";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label3.UseMnemonic = false;
+            this.label3.Click += new System.EventHandler(this.Label3_Click);
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(30, 80);
+            this.comboBox1.Location = new System.Drawing.Point(33, 81);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(293, 24);
+            this.comboBox1.Size = new System.Drawing.Size(244, 24);
             this.comboBox1.TabIndex = 1;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
@@ -247,6 +251,7 @@ namespace SmartOilChange.Forms
             this.label1.Text = "Buscar veiculos";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label1.UseMnemonic = false;
+            this.label1.Click += new System.EventHandler(this.Label1_Click_1);
             // 
             // groupBoxLubrificante
             // 
@@ -265,6 +270,7 @@ namespace SmartOilChange.Forms
             this.groupBoxLubrificante.TabIndex = 3;
             this.groupBoxLubrificante.TabStop = false;
             this.groupBoxLubrificante.Text = "Lubrificante";
+            this.groupBoxLubrificante.Enter += new System.EventHandler(this.GroupBoxLubrificante_Enter);
             // 
             // labelViscosidade
             // 
@@ -276,6 +282,7 @@ namespace SmartOilChange.Forms
             this.labelViscosidade.TabIndex = 0;
             this.labelViscosidade.Text = "Viscosidade";
             this.labelViscosidade.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelViscosidade.Click += new System.EventHandler(this.LabelViscosidade_Click);
             // 
             // txtViscosidadeValue
             // 
@@ -285,6 +292,7 @@ namespace SmartOilChange.Forms
             this.txtViscosidadeValue.ReadOnly = true;
             this.txtViscosidadeValue.Size = new System.Drawing.Size(310, 22);
             this.txtViscosidadeValue.TabIndex = 1;
+            this.txtViscosidadeValue.TextChanged += new System.EventHandler(this.TxtViscosidadeValue_TextChanged);
             // 
             // labelEspecificacao
             // 
@@ -296,6 +304,7 @@ namespace SmartOilChange.Forms
             this.labelEspecificacao.TabIndex = 2;
             this.labelEspecificacao.Text = "Especificação";
             this.labelEspecificacao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelEspecificacao.Click += new System.EventHandler(this.LabelEspecificacao_Click);
             // 
             // txtEspecificacaoValue
             // 
@@ -305,6 +314,7 @@ namespace SmartOilChange.Forms
             this.txtEspecificacaoValue.ReadOnly = true;
             this.txtEspecificacaoValue.Size = new System.Drawing.Size(310, 22);
             this.txtEspecificacaoValue.TabIndex = 3;
+            this.txtEspecificacaoValue.TextChanged += new System.EventHandler(this.TxtEspecificacaoValue_TextChanged);
             // 
             // labelCapacidade
             // 
@@ -316,6 +326,7 @@ namespace SmartOilChange.Forms
             this.labelCapacidade.TabIndex = 4;
             this.labelCapacidade.Text = "Capacidade";
             this.labelCapacidade.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelCapacidade.Click += new System.EventHandler(this.LabelCapacidade_Click);
             // 
             // txtCapacidadeValue
             // 
@@ -325,6 +336,7 @@ namespace SmartOilChange.Forms
             this.txtCapacidadeValue.ReadOnly = true;
             this.txtCapacidadeValue.Size = new System.Drawing.Size(310, 22);
             this.txtCapacidadeValue.TabIndex = 5;
+            this.txtCapacidadeValue.TextChanged += new System.EventHandler(this.TxtCapacidadeValue_TextChanged);
             // 
             // groupBoxFiltroOriginal
             // 
@@ -343,6 +355,7 @@ namespace SmartOilChange.Forms
             this.groupBoxFiltroOriginal.TabIndex = 4;
             this.groupBoxFiltroOriginal.TabStop = false;
             this.groupBoxFiltroOriginal.Text = "Filtro (Original)";
+            this.groupBoxFiltroOriginal.Enter += new System.EventHandler(this.GroupBoxFiltroOriginal_Enter);
             // 
             // labelTipoOriginal
             // 
@@ -354,6 +367,7 @@ namespace SmartOilChange.Forms
             this.labelTipoOriginal.TabIndex = 0;
             this.labelTipoOriginal.Text = "Tipo";
             this.labelTipoOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelTipoOriginal.Click += new System.EventHandler(this.LabelTipoOriginal_Click);
             // 
             // txtTipoOriginalValue
             // 
@@ -363,6 +377,7 @@ namespace SmartOilChange.Forms
             this.txtTipoOriginalValue.ReadOnly = true;
             this.txtTipoOriginalValue.Size = new System.Drawing.Size(310, 22);
             this.txtTipoOriginalValue.TabIndex = 1;
+            this.txtTipoOriginalValue.TextChanged += new System.EventHandler(this.TxtTipoOriginalValue_TextChanged);
             // 
             // labelMarcaOriginal
             // 
@@ -374,6 +389,7 @@ namespace SmartOilChange.Forms
             this.labelMarcaOriginal.TabIndex = 2;
             this.labelMarcaOriginal.Text = "Marca";
             this.labelMarcaOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelMarcaOriginal.Click += new System.EventHandler(this.LabelMarcaOriginal_Click);
             // 
             // txtMarcaOriginalValue
             // 
@@ -383,6 +399,7 @@ namespace SmartOilChange.Forms
             this.txtMarcaOriginalValue.ReadOnly = true;
             this.txtMarcaOriginalValue.Size = new System.Drawing.Size(310, 22);
             this.txtMarcaOriginalValue.TabIndex = 3;
+            this.txtMarcaOriginalValue.TextChanged += new System.EventHandler(this.TxtMarcaOriginalValue_TextChanged);
             // 
             // labelNumeracaoOriginal
             // 
@@ -394,6 +411,7 @@ namespace SmartOilChange.Forms
             this.labelNumeracaoOriginal.TabIndex = 4;
             this.labelNumeracaoOriginal.Text = "Numeração";
             this.labelNumeracaoOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelNumeracaoOriginal.Click += new System.EventHandler(this.LabelNumeracaoOriginal_Click);
             // 
             // txtNumeracaoOriginalValue
             // 
@@ -403,14 +421,12 @@ namespace SmartOilChange.Forms
             this.txtNumeracaoOriginalValue.ReadOnly = true;
             this.txtNumeracaoOriginalValue.Size = new System.Drawing.Size(310, 22);
             this.txtNumeracaoOriginalValue.TabIndex = 5;
+            this.txtNumeracaoOriginalValue.TextChanged += new System.EventHandler(this.TxtNumeracaoOriginalValue_TextChanged);
             // 
             // groupBoxFiltroEquivalente
             // 
             this.groupBoxFiltroEquivalente.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.groupBoxFiltroEquivalente.Controls.Add(this.labelMarcaEquivalente);
-            this.groupBoxFiltroEquivalente.Controls.Add(this.txtMarcaEquivalenteValue);
-            this.groupBoxFiltroEquivalente.Controls.Add(this.labelNumeracaoEquivalente);
-            this.groupBoxFiltroEquivalente.Controls.Add(this.txtNumeracaoEquivalenteValue);
+            this.groupBoxFiltroEquivalente.Controls.Add(this.dgvFiltrosEquivalentes);
             this.groupBoxFiltroEquivalente.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.groupBoxFiltroEquivalente.Location = new System.Drawing.Point(760, 310);
             this.groupBoxFiltroEquivalente.Name = "groupBoxFiltroEquivalente";
@@ -419,46 +435,23 @@ namespace SmartOilChange.Forms
             this.groupBoxFiltroEquivalente.TabIndex = 5;
             this.groupBoxFiltroEquivalente.TabStop = false;
             this.groupBoxFiltroEquivalente.Text = "Filtro (Equivalente)";
+            this.groupBoxFiltroEquivalente.Enter += new System.EventHandler(this.GroupBoxFiltroEquivalente_Enter);
             // 
-            // labelMarcaEquivalente
+            // dgvFiltrosEquivalentes
             // 
-            this.labelMarcaEquivalente.AutoSize = true;
-            this.labelMarcaEquivalente.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            this.labelMarcaEquivalente.Location = new System.Drawing.Point(20, 35);
-            this.labelMarcaEquivalente.Name = "labelMarcaEquivalente";
-            this.labelMarcaEquivalente.Size = new System.Drawing.Size(46, 16);
-            this.labelMarcaEquivalente.TabIndex = 0;
-            this.labelMarcaEquivalente.Text = "Marca";
-            this.labelMarcaEquivalente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtMarcaEquivalenteValue
-            // 
-            this.txtMarcaEquivalenteValue.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtMarcaEquivalenteValue.Location = new System.Drawing.Point(20, 55);
-            this.txtMarcaEquivalenteValue.Name = "txtMarcaEquivalenteValue";
-            this.txtMarcaEquivalenteValue.ReadOnly = true;
-            this.txtMarcaEquivalenteValue.Size = new System.Drawing.Size(310, 22);
-            this.txtMarcaEquivalenteValue.TabIndex = 1;
-            // 
-            // labelNumeracaoEquivalente
-            // 
-            this.labelNumeracaoEquivalente.AutoSize = true;
-            this.labelNumeracaoEquivalente.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            this.labelNumeracaoEquivalente.Location = new System.Drawing.Point(20, 100);
-            this.labelNumeracaoEquivalente.Name = "labelNumeracaoEquivalente";
-            this.labelNumeracaoEquivalente.Size = new System.Drawing.Size(80, 16);
-            this.labelNumeracaoEquivalente.TabIndex = 2;
-            this.labelNumeracaoEquivalente.Text = "Numeração";
-            this.labelNumeracaoEquivalente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtNumeracaoEquivalenteValue
-            // 
-            this.txtNumeracaoEquivalenteValue.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtNumeracaoEquivalenteValue.Location = new System.Drawing.Point(20, 120);
-            this.txtNumeracaoEquivalenteValue.Name = "txtNumeracaoEquivalenteValue";
-            this.txtNumeracaoEquivalenteValue.ReadOnly = true;
-            this.txtNumeracaoEquivalenteValue.Size = new System.Drawing.Size(310, 22);
-            this.txtNumeracaoEquivalenteValue.TabIndex = 3;
+            this.dgvFiltrosEquivalentes.AllowUserToAddRows = false;
+            this.dgvFiltrosEquivalentes.AllowUserToDeleteRows = false;
+            this.dgvFiltrosEquivalentes.BackgroundColor = System.Drawing.Color.White;
+            this.dgvFiltrosEquivalentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFiltrosEquivalentes.Location = new System.Drawing.Point(20, 35);
+            this.dgvFiltrosEquivalentes.MultiSelect = false;
+            this.dgvFiltrosEquivalentes.Name = "dgvFiltrosEquivalentes";
+            this.dgvFiltrosEquivalentes.ReadOnly = true;
+            this.dgvFiltrosEquivalentes.RowHeadersVisible = false;
+            this.dgvFiltrosEquivalentes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFiltrosEquivalentes.Size = new System.Drawing.Size(310, 240);
+            this.dgvFiltrosEquivalentes.TabIndex = 0;
+            this.dgvFiltrosEquivalentes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvFiltrosEquivalentes_CellContentClick);
             // 
             // Formprincipal
             // 
@@ -479,7 +472,7 @@ namespace SmartOilChange.Forms
             this.groupBoxFiltroOriginal.ResumeLayout(false);
             this.groupBoxFiltroOriginal.PerformLayout();
             this.groupBoxFiltroEquivalente.ResumeLayout(false);
-            this.groupBoxFiltroEquivalente.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiltrosEquivalentes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -514,9 +507,6 @@ namespace SmartOilChange.Forms
         private System.Windows.Forms.Label labelNumeracaoOriginal;
         private System.Windows.Forms.TextBox txtNumeracaoOriginalValue;
         private System.Windows.Forms.GroupBox groupBoxFiltroEquivalente;
-        private System.Windows.Forms.Label labelMarcaEquivalente;
-        private System.Windows.Forms.TextBox txtMarcaEquivalenteValue;
-        private System.Windows.Forms.Label labelNumeracaoEquivalente;
-        private System.Windows.Forms.TextBox txtNumeracaoEquivalenteValue;
+        private System.Windows.Forms.DataGridView dgvFiltrosEquivalentes;
     }
 }

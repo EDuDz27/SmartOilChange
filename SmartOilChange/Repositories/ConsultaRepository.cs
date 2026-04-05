@@ -64,7 +64,7 @@ namespace SmartOilChange.Repositories
                     }
                 }
 
-                // Buscar filtro equivalente
+                // Buscar filtros equivalentes
                 if (resultado.FiltroOriginal != null)
                 {
                     string sqlEquiv = @"SELECT fe.id, fe.marca, fe.numero_peca
@@ -78,14 +78,14 @@ namespace SmartOilChange.Repositories
 
                         using (var reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
-                                resultado.FiltroEquivalente = new FiltroEquivalente
+                                resultado.FiltrosEquivalentes.Add(new FiltroEquivalente
                                 {
                                     Id = reader.GetInt32(0),
                                     Marca = reader.IsDBNull(1) ? "" : reader.GetString(1),
                                     NumeroPeca = reader.IsDBNull(2) ? "" : reader.GetString(2)
-                                };
+                                });
                             }
                         }
                     }

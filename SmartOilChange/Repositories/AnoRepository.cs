@@ -5,27 +5,27 @@ namespace SmartOilChange.Repositories
 {
     internal class AnoRepository
     {
-        public List<int> GetByMotorId(int motorId)
+        public List<int> GetByModeloId(int modeloId)
         {
-            var anos = new List<int>();
+            var anos = new SortedSet<int>();
 
             using (var conn = DatabaseHelper.GetConnection())
             {
                 conn.Open();
-                string sql = "SELECT ano_inicio, ano_fim FROM MOTORES WHERE id = @motorId";
+                string sql = "SELECT ano_inicio, ano_fim FROM MODELOS_MOTORES WHERE modelo_id = @modeloId";
 
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
-                    cmd.Parameters.AddWithValue("@motorId", motorId);
+                    cmd.Parameters.AddWithValue("@modeloId", modeloId);
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
                             int anoInicio = reader.GetInt32(0);
                             int anoFim = reader.GetInt32(1);
 
-                            for (int ano = anoFim; ano >= anoInicio; ano--)
+                            for (int ano = anoInicio; ano <= anoFim; ano++)
                             {
                                 anos.Add(ano);
                             }
@@ -34,7 +34,7 @@ namespace SmartOilChange.Repositories
                 }
             }
 
-            return anos;
+            return new List<int>(anos);
         }
     }
 }

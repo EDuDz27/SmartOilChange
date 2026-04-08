@@ -2,7 +2,7 @@
 {
     internal class Modelo
     {
-        public int Id { get; set; }
+        public int ModeloId { get; set; }
         public int MarcaId { get; set; }
         public string Nome { get; set; }
 

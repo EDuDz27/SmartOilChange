@@ -1,8 +1,8 @@
 ﻿namespace SmartOilChange.Models
 {
-    internal class FiltroEquivalente
+    internal class Filtro
     {
-        public int Id { get; set; }
+        public string Tipo { get; set; }
         public string Marca { get; set; }
         public string NumeroPeca { get; set; }
     }

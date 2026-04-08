@@ -27,22 +27,68 @@ namespace SmartOilChange.Repositories
                 Directory.CreateDirectory(DatabaseFolder);
             }
 
-            bool isNewDatabase = !File.Exists(DatabasePath);
-
-            if (isNewDatabase)
+            if (!File.Exists(DatabasePath) || new FileInfo(DatabasePath).Length == 0)
             {
-                SQLiteConnection.CreateFile(DatabasePath);
+                RecreateDatabase();
+                return;
             }
 
             using (var connection = GetConnection())
             {
                 connection.Open();
 
-                if (isNewDatabase)
+                if (!SchemaValido(connection))
                 {
-                    ExecuteSqlFile(connection, Path.Combine(DatabaseFolder, "schema.sql"));
-                    ExecuteSqlFile(connection, Path.Combine(DatabaseFolder, "seed.sql"));
+                    connection.Close();
+                    RecreateDatabase();
                 }
+            }
+        }
+
+        private static bool SchemaValido(SQLiteConnection connection)
+        {
+            return TabelaComColunaExiste(connection, "MARCAS", "marca_id")
+                && TabelaComColunaExiste(connection, "MODELOS", "modelo_id")
+                && TabelaComColunaExiste(connection, "MOTORES", "motor_id")
+                && TabelaComColunaExiste(connection, "MODELOS_MOTORES", "modelo_motor_id")
+                && TabelaComColunaExiste(connection, "MODELOS_MOTORES", "ano_inicio")
+                && TabelaComColunaExiste(connection, "ESPECIFICACOES_OLEO", "norma_api")
+                && TabelaComColunaExiste(connection, "ESPECIFICACOES_OLEO", "norma_acea")
+                && TabelaComColunaExiste(connection, "FILTROS", "filtro_id")
+                && TabelaComColunaExiste(connection, "MOTOR_FILTROS", "modelo_motor_id");
+        }
+
+        private static bool TabelaComColunaExiste(SQLiteConnection connection, string tabela, string coluna)
+        {
+            using (var cmd = new SQLiteCommand("PRAGMA table_info(" + tabela + ")", connection))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    if (string.Equals(reader[1].ToString(), coluna, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static void RecreateDatabase()
+        {
+            if (File.Exists(DatabasePath))
+            {
+                File.Delete(DatabasePath);
+            }
+
+            SQLiteConnection.CreateFile(DatabasePath);
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                ExecuteSqlFile(connection, Path.Combine(DatabaseFolder, "schema.sql"));
+                ExecuteSqlFile(connection, Path.Combine(DatabaseFolder, "seed.sql"));
             }
         }
 

@@ -2,14 +2,15 @@
 {
     internal class Motor
     {
-        public int Id { get; set; }
-        public string NomeMotor { get; set; }
+        public int MotorId { get; set; }
+        public int ModeloMotorId { get; set; }
+        public string Nome { get; set; }
         public int AnoInicio { get; set; }
         public int AnoFim { get; set; }
 
         public override string ToString()
         {
-            return NomeMotor;
+            return Nome;
         }
     }
 }

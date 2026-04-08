@@ -6,7 +6,7 @@ namespace SmartOilChange.Repositories
 {
     internal class ConsultaRepository
     {
-        public ResultadoConsulta Consultar(int motorId)
+        public ResultadoConsulta Consultar(int modeloMotorId, int motorId)
         {
             var resultado = new ResultadoConsulta();
 
@@ -14,8 +14,7 @@ namespace SmartOilChange.Repositories
             {
                 conn.Open();
 
-                // Buscar especificacao de oleo
-                string sqlOleo = @"SELECT id, motor_id, viscosidade, especificacao, capacidade_litros
+                string sqlOleo = @"SELECT oleo_id, motor_id, viscosidade, norma_api, norma_acea, capacidade_litros, observacoes
                                    FROM ESPECIFICACOES_OLEO
                                    WHERE motor_id = @motorId";
 
@@ -29,70 +28,50 @@ namespace SmartOilChange.Repositories
                         {
                             resultado.Oleo = new EspecificacaoOleo
                             {
-                                Id = reader.GetInt32(0),
+                                OleoId = reader.GetInt32(0),
                                 MotorId = reader.GetInt32(1),
-                                Viscosidade = reader.IsDBNull(2) ? "" : reader.GetString(2),
-                                Especificacao = reader.IsDBNull(3) ? "" : reader.GetString(3),
-                                CapacidadeLitros = reader.IsDBNull(4) ? 0 : (decimal)reader.GetDouble(4)
+                                Viscosidade = reader.GetString(2),
+                                NormaApi = reader.GetString(3),
+                                NormaAcea = reader.GetString(4),
+                                CapacidadeLitros = Convert.ToDecimal(reader.GetDouble(5)),
+                                Observacoes = reader.GetString(6)
                             };
                         }
                     }
                 }
 
-                // Buscar filtro OEM (original)
-                string sqlFiltro = @"SELECT f.id, f.tipo, f.marca, f.numero_peca
-                                     FROM FILTROS_OEM f
-                                     INNER JOIN MOTORES_FILTROS_OEM mf ON f.id = mf.filtro_oem_id
-                                     WHERE mf.motor_id = @motorId";
+                string sqlFiltros = @"SELECT f.tipo, f.marca, f.numero_peca
+                                      FROM MOTOR_FILTROS mf
+                                      INNER JOIN FILTROS f ON f.filtro_id = mf.filtro_id
+                                      WHERE mf.modelo_motor_id = @modeloMotorId
+                                      ORDER BY f.tipo, f.marca, f.numero_peca";
 
-                using (var cmd = new SQLiteCommand(sqlFiltro, conn))
+                using (var cmd = new SQLiteCommand(sqlFiltros, conn))
                 {
-                    cmd.Parameters.AddWithValue("@motorId", motorId);
+                    cmd.Parameters.AddWithValue("@modeloMotorId", modeloMotorId);
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
-                            resultado.FiltroOriginal = new FiltroOriginal
+                            resultado.Filtros.Add(new Filtro
                             {
-                                Id = reader.GetInt32(0),
-                                Tipo = reader.IsDBNull(1) ? TipoFiltro.Blindado : (TipoFiltro)Enum.Parse(typeof(TipoFiltro), reader.GetString(1)),
-                                Marca = reader.IsDBNull(2) ? "" : reader.GetString(2),
-                                NumeroPeca = reader.IsDBNull(3) ? "" : reader.GetString(3)
-                            };
-                        }
-                    }
-                }
-
-                // Buscar filtros equivalentes
-                if (resultado.FiltroOriginal != null)
-                {
-                    string sqlEquiv = @"SELECT fe.id, fe.marca, fe.numero_peca
-                                        FROM FILTROS_EQUIVALENTES fe
-                                        INNER JOIN OEM_FILTROS_EQUIVALENTES ofe ON fe.id = ofe.filtro_equivalente_id
-                                        WHERE ofe.filtro_oem_id = @filtroOemId";
-
-                    using (var cmd = new SQLiteCommand(sqlEquiv, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@filtroOemId", resultado.FiltroOriginal.Id);
-
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                resultado.FiltrosEquivalentes.Add(new FiltroEquivalente
-                                {
-                                    Id = reader.GetInt32(0),
-                                    Marca = reader.IsDBNull(1) ? "" : reader.GetString(1),
-                                    NumeroPeca = reader.IsDBNull(2) ? "" : reader.GetString(2)
-                                });
-                            }
+                                Tipo = Capitalizar(reader.GetString(0)),
+                                Marca = reader.GetString(1),
+                                NumeroPeca = reader.GetString(2)
+                            });
                         }
                     }
                 }
             }
 
             return resultado;
+        }
+
+        private static string Capitalizar(string valor)
+        {
+            if (string.IsNullOrWhiteSpace(valor)) return string.Empty;
+            return char.ToUpper(valor[0]) + valor.Substring(1).ToLower();
         }
     }
 }

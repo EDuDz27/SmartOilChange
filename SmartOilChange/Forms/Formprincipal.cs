@@ -12,7 +12,6 @@ namespace SmartOilChange.Forms
         private readonly MarcaRepository _marcaRepository = new MarcaRepository();
         private readonly ModeloRepository _modeloRepository = new ModeloRepository();
         private readonly MotorRepository _motorRepository = new MotorRepository();
-        private readonly AnoRepository _anoRepository = new AnoRepository();
         private readonly ConsultaRepository _consultaRepository = new ConsultaRepository();
 
         private List<Motor> _motoresDoModelo = new List<Motor>();
@@ -25,6 +24,7 @@ namespace SmartOilChange.Forms
         private void Formprincipal_Load(object sender, EventArgs e)
         {
             CarregarMarcas();
+            AtualizarEstadoConsulta();
         }
 
         private void CarregarMarcas()
@@ -41,7 +41,6 @@ namespace SmartOilChange.Forms
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Reset campos dependentes
             ResetModelo();
             ResetAno();
             ResetMotor();
@@ -49,14 +48,14 @@ namespace SmartOilChange.Forms
 
             if (comboBox1.SelectedIndex <= 0)
             {
-                comboBox2.Enabled = false;
+                AtualizarEstadoConsulta();
                 return;
             }
 
             var marcaSelecionada = comboBox1.SelectedItem as Marca;
             if (marcaSelecionada == null) return;
 
-            var modelos = _modeloRepository.GetByMarcaId(marcaSelecionada.Id);
+            var modelos = _modeloRepository.GetByMarcaId(marcaSelecionada.MarcaId);
             comboBox2.Items.Clear();
             comboBox2.Items.Add("-- Selecione --");
             foreach (var modelo in modelos)
@@ -65,28 +64,26 @@ namespace SmartOilChange.Forms
             }
             comboBox2.SelectedIndex = 0;
             comboBox2.Enabled = true;
+            AtualizarEstadoConsulta();
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Reset campos dependentes
             ResetAno();
             ResetMotor();
             ResetResultados();
 
             if (comboBox2.SelectedIndex <= 0)
             {
-                comboBox4.Enabled = false;
+                AtualizarEstadoConsulta();
                 return;
             }
 
             var modeloSelecionado = comboBox2.SelectedItem as Modelo;
             if (modeloSelecionado == null) return;
 
-            // Busca todos os motores desse modelo para extrair os anos
-            _motoresDoModelo = _motorRepository.GetByModeloId(modeloSelecionado.Id);
+            _motoresDoModelo = _motorRepository.GetByModeloId(modeloSelecionado.ModeloId);
 
-            // Coletar todos os anos unicos de todos os motores
             var anos = new SortedSet<int>();
             foreach (var motor in _motoresDoModelo)
             {
@@ -104,23 +101,22 @@ namespace SmartOilChange.Forms
             }
             comboBox4.SelectedIndex = 0;
             comboBox4.Enabled = true;
+            AtualizarEstadoConsulta();
         }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Reset campos dependentes
             ResetMotor();
             ResetResultados();
 
             if (comboBox4.SelectedIndex <= 0)
             {
-                comboBox3.Enabled = false;
+                AtualizarEstadoConsulta();
                 return;
             }
 
             int anoSelecionado = (int)comboBox4.SelectedItem;
 
-            // Filtrar motores que cobrem o ano selecionado
             var motoresFiltrados = _motoresDoModelo
                 .Where(m => anoSelecionado >= m.AnoInicio && anoSelecionado <= m.AnoFim)
                 .ToList();
@@ -133,40 +129,51 @@ namespace SmartOilChange.Forms
             }
             comboBox3.SelectedIndex = 0;
             comboBox3.Enabled = true;
+            AtualizarEstadoConsulta();
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResetResultados();
-            BotaoConsultar.Enabled = comboBox3.SelectedIndex > 0;
+            AtualizarEstadoConsulta();
         }
 
         private void BotaoConsultar_Click(object sender, EventArgs e)
         {
+            if (!TodosCamposSelecionados())
+            {
+                MessageBox.Show("Selecione Marca, Modelo, Ano e Motor antes de consultar.", "Campos obrigatórios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var motorSelecionado = comboBox3.SelectedItem as Motor;
             if (motorSelecionado == null) return;
 
-            var resultado = _consultaRepository.Consultar(motorSelecionado.Id);
+            var resultado = _consultaRepository.Consultar(motorSelecionado.ModeloMotorId, motorSelecionado.MotorId);
 
-            // Preencher Lubrificante
             if (resultado.Oleo != null)
             {
                 txtViscosidadeValue.Text = resultado.Oleo.Viscosidade;
-                txtEspecificacaoValue.Text = resultado.Oleo.Especificacao;
-                txtCapacidadeValue.Text = resultado.Oleo.CapacidadeLitros + " L";
+                txtEspecificacaoValue.Text = resultado.Oleo.NormaApi;
+                txtNormaAceaValue.Text = resultado.Oleo.NormaAcea;
+                txtCapacidadeValue.Text = resultado.Oleo.CapacidadeLitros.ToString("0.00") + " L";
             }
 
-            // Preencher Filtro Original
-            if (resultado.FiltroOriginal != null)
-            {
-                txtTipoOriginalValue.Text = resultado.FiltroOriginal.Tipo.ToString();
-                txtMarcaOriginalValue.Text = resultado.FiltroOriginal.Marca;
-                txtNumeracaoOriginalValue.Text = resultado.FiltroOriginal.NumeroPeca;
-            }
-
-            // Preencher Filtros Equivalentes
             dgvFiltrosEquivalentes.DataSource = null;
-            dgvFiltrosEquivalentes.DataSource = resultado.FiltrosEquivalentes;
+            dgvFiltrosEquivalentes.DataSource = resultado.Filtros;
+        }
+
+        private bool TodosCamposSelecionados()
+        {
+            return comboBox1.SelectedIndex > 0
+                && comboBox2.SelectedIndex > 0
+                && comboBox4.SelectedIndex > 0
+                && comboBox3.SelectedIndex > 0;
+        }
+
+        private void AtualizarEstadoConsulta()
+        {
+            BotaoConsultar.Enabled = TodosCamposSelecionados();
         }
 
         private void ResetModelo()
@@ -193,10 +200,8 @@ namespace SmartOilChange.Forms
         {
             txtViscosidadeValue.Text = "";
             txtEspecificacaoValue.Text = "";
+            txtNormaAceaValue.Text = "";
             txtCapacidadeValue.Text = "";
-            txtTipoOriginalValue.Text = "";
-            txtMarcaOriginalValue.Text = "";
-            txtNumeracaoOriginalValue.Text = "";
             dgvFiltrosEquivalentes.DataSource = null;
         }
 
@@ -278,41 +283,6 @@ namespace SmartOilChange.Forms
         }
 
         private void TxtCapacidadeValue_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void GroupBoxFiltroOriginal_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LabelTipoOriginal_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtTipoOriginalValue_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LabelMarcaOriginal_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtMarcaOriginalValue_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LabelNumeracaoOriginal_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtNumeracaoOriginalValue_TextChanged(object sender, EventArgs e)
         {
 
         }

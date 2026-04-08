@@ -13,7 +13,7 @@ namespace SmartOilChange.Repositories
             using (var conn = DatabaseHelper.GetConnection())
             {
                 conn.Open();
-                string sql = "SELECT id, marca_id, nome FROM MODELOS WHERE marca_id = @marcaId ORDER BY nome";
+                string sql = "SELECT modelo_id, marca_id, nome FROM MODELOS WHERE marca_id = @marcaId ORDER BY nome";
 
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
@@ -25,7 +25,7 @@ namespace SmartOilChange.Repositories
                         {
                             modelos.Add(new Modelo
                             {
-                                Id = reader.GetInt32(0),
+                                ModeloId = reader.GetInt32(0),
                                 MarcaId = reader.GetInt32(1),
                                 Nome = reader.GetString(2)
                             });

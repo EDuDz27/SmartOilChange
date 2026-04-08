@@ -71,8 +71,7 @@
       <DependentUpon>Formprincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\EspecificacaoOleo.cs" />
-    <Compile Include="Models\FiltroOriginal.cs" />
-    <Compile Include="Models\FiltroEquivalente.cs" />
+    <Compile Include="Models\Filtro.cs" />
     <Compile Include="Models\ResultadoConsulta.cs" />
     <Compile Include="Models\Motor.cs" />
     <Compile Include="Models\Modelo.cs" />

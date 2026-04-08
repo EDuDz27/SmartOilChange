@@ -13,7 +13,7 @@ namespace SmartOilChange.Repositories
             using (var conn = DatabaseHelper.GetConnection())
             {
                 conn.Open();
-                string sql = "SELECT id, nome FROM MARCAS ORDER BY nome";
+                string sql = "SELECT marca_id, nome FROM MARCAS ORDER BY nome";
 
                 using (var cmd = new SQLiteCommand(sql, conn))
                 using (var reader = cmd.ExecuteReader())
@@ -22,7 +22,7 @@ namespace SmartOilChange.Repositories
                     {
                         marcas.Add(new Marca
                         {
-                            Id = reader.GetInt32(0),
+                            MarcaId = reader.GetInt32(0),
                             Nome = reader.GetString(1)
                         });
                     }

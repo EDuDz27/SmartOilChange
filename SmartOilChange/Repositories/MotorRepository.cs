@@ -13,11 +13,11 @@ namespace SmartOilChange.Repositories
             using (var conn = DatabaseHelper.GetConnection())
             {
                 conn.Open();
-                string sql = @"SELECT m.id, m.nome_motor, m.ano_inicio, m.ano_fim
-                               FROM MOTORES m
-                               INNER JOIN MODELOS_MOTORES mm ON m.id = mm.motor_id
+                string sql = @"SELECT mm.modelo_motor_id, m.motor_id, m.nome, mm.ano_inicio, mm.ano_fim
+                               FROM MODELOS_MOTORES mm
+                               INNER JOIN MOTORES m ON m.motor_id = mm.motor_id
                                WHERE mm.modelo_id = @modeloId
-                               ORDER BY m.nome_motor";
+                               ORDER BY m.nome, mm.ano_inicio DESC";
 
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
@@ -29,10 +29,11 @@ namespace SmartOilChange.Repositories
                         {
                             motores.Add(new Motor
                             {
-                                Id = reader.GetInt32(0),
-                                NomeMotor = reader.GetString(1),
-                                AnoInicio = reader.GetInt32(2),
-                                AnoFim = reader.GetInt32(3)
+                                ModeloMotorId = reader.GetInt32(0),
+                                MotorId = reader.GetInt32(1),
+                                Nome = reader.GetString(2),
+                                AnoInicio = reader.GetInt32(3),
+                                AnoFim = reader.GetInt32(4)
                             });
                         }
                     }

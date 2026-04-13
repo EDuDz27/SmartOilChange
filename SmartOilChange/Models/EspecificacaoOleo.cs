@@ -3,7 +3,7 @@
     internal class EspecificacaoOleo
     {
         public int OleoId { get; set; }
-        public int MotorId { get; set; }
+        public int ModeloMotorId { get; set; }
         public string Viscosidade { get; set; }
         public string NormaApi { get; set; }
         public string NormaAcea { get; set; }

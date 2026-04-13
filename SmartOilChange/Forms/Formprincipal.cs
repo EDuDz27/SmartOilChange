@@ -16,6 +16,18 @@ namespace SmartOilChange.Forms
 
         private List<Motor> _motoresDoModelo = new List<Motor>();
 
+        private class MotorOpcao
+        {
+            public int MotorId { get; set; }
+            public string Nome { get; set; }
+            public List<int> ModeloMotorIds { get; set; } = new List<int>();
+
+            public override string ToString()
+            {
+                return Nome;
+            }
+        }
+
         public Formprincipal()
         {
             InitializeComponent();
@@ -121,9 +133,20 @@ namespace SmartOilChange.Forms
                 .Where(m => anoSelecionado >= m.AnoInicio && anoSelecionado <= m.AnoFim)
                 .ToList();
 
+            var motoresAgrupados = motoresFiltrados
+                .GroupBy(m => new { m.MotorId, m.Nome })
+                .Select(g => new MotorOpcao
+                {
+                    MotorId = g.Key.MotorId,
+                    Nome = g.Key.Nome,
+                    ModeloMotorIds = g.Select(x => x.ModeloMotorId).Distinct().ToList()
+                })
+                .OrderBy(m => m.Nome)
+                .ToList();
+
             comboBox3.Items.Clear();
             comboBox3.Items.Add("-- Selecione --");
-            foreach (var motor in motoresFiltrados)
+            foreach (var motor in motoresAgrupados)
             {
                 comboBox3.Items.Add(motor);
             }
@@ -146,21 +169,69 @@ namespace SmartOilChange.Forms
                 return;
             }
 
-            var motorSelecionado = comboBox3.SelectedItem as Motor;
+            var motorSelecionado = comboBox3.SelectedItem as MotorOpcao;
             if (motorSelecionado == null) return;
 
-            var resultado = _consultaRepository.Consultar(motorSelecionado.ModeloMotorId, motorSelecionado.MotorId);
+            var resultado = _consultaRepository.Consultar(motorSelecionado.ModeloMotorIds);
 
-            if (resultado.Oleo != null)
+            PreencherLubrificante(resultado);
+            PreencherFiltrosCompativeis(resultado);
+        }
+
+        private void PreencherLubrificante(ResultadoConsulta resultado)
+        {
+            const string textoPadrao = "Informação indisponível";
+
+            if (resultado == null || resultado.Oleo == null)
             {
-                txtViscosidadeValue.Text = resultado.Oleo.Viscosidade;
-                txtEspecificacaoValue.Text = resultado.Oleo.NormaApi;
-                txtNormaAceaValue.Text = resultado.Oleo.NormaAcea;
-                txtCapacidadeValue.Text = resultado.Oleo.CapacidadeLitros.ToString("0.00") + " L";
+                txtViscosidadeValue.Text = textoPadrao;
+                txtEspecificacaoValue.Text = textoPadrao;
+                txtNormaAceaValue.Text = textoPadrao;
+                txtCapacidadeValue.Text = textoPadrao;
+                return;
+            }
+
+            txtViscosidadeValue.Text = ValorOuPadrao(resultado.Oleo.Viscosidade, textoPadrao);
+            txtEspecificacaoValue.Text = ValorOuPadrao(resultado.Oleo.NormaApi, textoPadrao);
+            txtNormaAceaValue.Text = ValorOuPadrao(resultado.Oleo.NormaAcea, textoPadrao);
+            txtCapacidadeValue.Text = resultado.Oleo.CapacidadeLitros > 0
+                ? resultado.Oleo.CapacidadeLitros.ToString("0.00") + " L"
+                : textoPadrao;
+        }
+
+        private void PreencherFiltrosCompativeis(ResultadoConsulta resultado)
+        {
+            const string textoPadrao = "Dado não encontrado";
+
+            var filtros = (resultado != null && resultado.Filtros != null)
+                ? resultado.Filtros
+                    .Where(f => f != null)
+                    .Select(f => new Filtro
+                    {
+                        Tipo = ValorOuPadrao(f.Tipo, textoPadrao),
+                        Marca = ValorOuPadrao(f.Marca, textoPadrao),
+                        NumeroPeca = ValorOuPadrao(f.NumeroPeca, textoPadrao)
+                    })
+                    .ToList()
+                : new List<Filtro>();
+
+            if (filtros.Count == 0)
+            {
+                filtros.Add(new Filtro
+                {
+                    Tipo = textoPadrao,
+                    Marca = textoPadrao,
+                    NumeroPeca = textoPadrao
+                });
             }
 
             dgvFiltrosEquivalentes.DataSource = null;
-            dgvFiltrosEquivalentes.DataSource = resultado.Filtros;
+            dgvFiltrosEquivalentes.DataSource = filtros;
+        }
+
+        private static string ValorOuPadrao(string valor, string textoPadrao)
+        {
+            return string.IsNullOrWhiteSpace(valor) ? textoPadrao : valor.Trim();
         }
 
         private bool TodosCamposSelecionados()

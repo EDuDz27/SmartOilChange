@@ -51,7 +51,7 @@ namespace SmartOilChange.Repositories
                                 Viscosidade = reader.GetString(2),
                                 NormaApi = reader.GetString(3),
                                 NormaAcea = reader.GetString(4),
-                                CapacidadeLitros = Convert.ToDecimal(reader.GetDouble(5)),
+                                CapacidadeLitros = reader.IsDBNull(5) ? 0m : Convert.ToDecimal(reader.GetDouble(5)),
                                 Observacoes = reader.GetString(6)
                             };
                         }

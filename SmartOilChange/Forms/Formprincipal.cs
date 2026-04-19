@@ -185,14 +185,14 @@ namespace SmartOilChange.Forms
             if (resultado == null || resultado.Oleo == null)
             {
                 txtViscosidadeValue.Text = textoPadrao;
-                txtEspecificacaoValue.Text = textoPadrao;
+                txtNormaApiValue.Text = textoPadrao;
                 txtNormaAceaValue.Text = textoPadrao;
                 txtCapacidadeValue.Text = textoPadrao;
                 return;
             }
 
             txtViscosidadeValue.Text = ValorOuPadrao(resultado.Oleo.Viscosidade, textoPadrao);
-            txtEspecificacaoValue.Text = ValorOuPadrao(resultado.Oleo.NormaApi, textoPadrao);
+            txtNormaApiValue.Text = ValorOuPadrao(resultado.Oleo.NormaApi, textoPadrao);
             txtNormaAceaValue.Text = ValorOuPadrao(resultado.Oleo.NormaAcea, textoPadrao);
             txtCapacidadeValue.Text = resultado.Oleo.CapacidadeLitros > 0
                 ? resultado.Oleo.CapacidadeLitros.ToString("0.00") + " L"
@@ -270,7 +270,7 @@ namespace SmartOilChange.Forms
         private void ResetResultados()
         {
             txtViscosidadeValue.Text = "";
-            txtEspecificacaoValue.Text = "";
+            txtNormaApiValue.Text = "";
             txtNormaAceaValue.Text = "";
             txtCapacidadeValue.Text = "";
             dgvFiltrosEquivalentes.DataSource = null;
@@ -338,12 +338,12 @@ namespace SmartOilChange.Forms
 
         }
 
-        private void LabelEspecificacao_Click(object sender, EventArgs e)
+        private void LabelNormaApi_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void TxtEspecificacaoValue_TextChanged(object sender, EventArgs e)
+        private void TxtNormaApiValue_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -364,6 +364,11 @@ namespace SmartOilChange.Forms
         }
 
         private void DgvFiltrosEquivalentes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void TxtNormaAceaValue_TextChanged(object sender, EventArgs e)
         {
 
         }

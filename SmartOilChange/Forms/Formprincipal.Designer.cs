@@ -47,8 +47,8 @@ namespace SmartOilChange.Forms
             this.groupBoxLubrificante = new System.Windows.Forms.GroupBox();
             this.labelViscosidade = new System.Windows.Forms.Label();
             this.txtViscosidadeValue = new System.Windows.Forms.TextBox();
-            this.labelEspecificacao = new System.Windows.Forms.Label();
-            this.txtEspecificacaoValue = new System.Windows.Forms.TextBox();
+            this.labelNormaApi = new System.Windows.Forms.Label();
+            this.txtNormaApiValue = new System.Windows.Forms.TextBox();
             this.labelNormaAcea = new System.Windows.Forms.Label();
             this.txtNormaAceaValue = new System.Windows.Forms.TextBox();
             this.labelCapacidade = new System.Windows.Forms.Label();
@@ -251,8 +251,8 @@ namespace SmartOilChange.Forms
             this.groupBoxLubrificante.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.groupBoxLubrificante.Controls.Add(this.labelViscosidade);
             this.groupBoxLubrificante.Controls.Add(this.txtViscosidadeValue);
-            this.groupBoxLubrificante.Controls.Add(this.labelEspecificacao);
-            this.groupBoxLubrificante.Controls.Add(this.txtEspecificacaoValue);
+            this.groupBoxLubrificante.Controls.Add(this.labelNormaApi);
+            this.groupBoxLubrificante.Controls.Add(this.txtNormaApiValue);
             this.groupBoxLubrificante.Controls.Add(this.labelNormaAcea);
             this.groupBoxLubrificante.Controls.Add(this.txtNormaAceaValue);
             this.groupBoxLubrificante.Controls.Add(this.labelCapacidade);
@@ -289,27 +289,27 @@ namespace SmartOilChange.Forms
             this.txtViscosidadeValue.TabIndex = 1;
             this.txtViscosidadeValue.TextChanged += new System.EventHandler(this.TxtViscosidadeValue_TextChanged);
             // 
-            // labelEspecificacao
+            // labelNormaApi
             // 
-            this.labelEspecificacao.AutoSize = true;
-            this.labelEspecificacao.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            this.labelEspecificacao.Location = new System.Drawing.Point(20, 100);
-            this.labelEspecificacao.Name = "labelEspecificacao";
-            this.labelEspecificacao.Size = new System.Drawing.Size(70, 16);
-            this.labelEspecificacao.TabIndex = 2;
-            this.labelEspecificacao.Text = "Norma API";
-            this.labelEspecificacao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelEspecificacao.Click += new System.EventHandler(this.LabelEspecificacao_Click);
+            this.labelNormaApi.AutoSize = true;
+            this.labelNormaApi.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            this.labelNormaApi.Location = new System.Drawing.Point(20, 100);
+            this.labelNormaApi.Name = "labelNormaApi";
+            this.labelNormaApi.Size = new System.Drawing.Size(75, 16);
+            this.labelNormaApi.TabIndex = 2;
+            this.labelNormaApi.Text = "Norma API";
+            this.labelNormaApi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelNormaApi.Click += new System.EventHandler(this.LabelNormaApi_Click);
             // 
-            // txtEspecificacaoValue
+            // txtNormaApiValue
             // 
-            this.txtEspecificacaoValue.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtEspecificacaoValue.Location = new System.Drawing.Point(20, 120);
-            this.txtEspecificacaoValue.Name = "txtEspecificacaoValue";
-            this.txtEspecificacaoValue.ReadOnly = true;
-            this.txtEspecificacaoValue.Size = new System.Drawing.Size(310, 22);
-            this.txtEspecificacaoValue.TabIndex = 3;
-            this.txtEspecificacaoValue.TextChanged += new System.EventHandler(this.TxtEspecificacaoValue_TextChanged);
+            this.txtNormaApiValue.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.txtNormaApiValue.Location = new System.Drawing.Point(20, 120);
+            this.txtNormaApiValue.Name = "txtNormaApiValue";
+            this.txtNormaApiValue.ReadOnly = true;
+            this.txtNormaApiValue.Size = new System.Drawing.Size(310, 22);
+            this.txtNormaApiValue.TabIndex = 3;
+            this.txtNormaApiValue.TextChanged += new System.EventHandler(this.TxtNormaApiValue_TextChanged);
             // 
             // labelNormaAcea
             // 
@@ -317,7 +317,7 @@ namespace SmartOilChange.Forms
             this.labelNormaAcea.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
             this.labelNormaAcea.Location = new System.Drawing.Point(20, 165);
             this.labelNormaAcea.Name = "labelNormaAcea";
-            this.labelNormaAcea.Size = new System.Drawing.Size(80, 16);
+            this.labelNormaAcea.Size = new System.Drawing.Size(88, 16);
             this.labelNormaAcea.TabIndex = 4;
             this.labelNormaAcea.Text = "Norma ACEA";
             this.labelNormaAcea.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -330,6 +330,7 @@ namespace SmartOilChange.Forms
             this.txtNormaAceaValue.ReadOnly = true;
             this.txtNormaAceaValue.Size = new System.Drawing.Size(310, 22);
             this.txtNormaAceaValue.TabIndex = 5;
+            this.txtNormaAceaValue.TextChanged += new System.EventHandler(this.TxtNormaAceaValue_TextChanged);
             // 
             // labelCapacidade
             // 
@@ -371,7 +372,9 @@ namespace SmartOilChange.Forms
             // 
             this.dgvFiltrosEquivalentes.AllowUserToAddRows = false;
             this.dgvFiltrosEquivalentes.AllowUserToDeleteRows = false;
-            this.dgvFiltrosEquivalentes.AutoGenerateColumns = false;
+            this.dgvFiltrosEquivalentes.AllowUserToResizeColumns = false;
+            this.dgvFiltrosEquivalentes.AllowUserToResizeRows = false;
+            this.dgvFiltrosEquivalentes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvFiltrosEquivalentes.BackgroundColor = System.Drawing.Color.White;
             this.dgvFiltrosEquivalentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFiltrosEquivalentes.Location = new System.Drawing.Point(20, 35);
@@ -379,32 +382,11 @@ namespace SmartOilChange.Forms
             this.dgvFiltrosEquivalentes.Name = "dgvFiltrosEquivalentes";
             this.dgvFiltrosEquivalentes.ReadOnly = true;
             this.dgvFiltrosEquivalentes.RowHeadersVisible = false;
+            this.dgvFiltrosEquivalentes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvFiltrosEquivalentes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvFiltrosEquivalentes.Size = new System.Drawing.Size(645, 240);
             this.dgvFiltrosEquivalentes.TabIndex = 0;
             this.dgvFiltrosEquivalentes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvFiltrosEquivalentes_CellContentClick);
-            var colTipoFiltro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            colTipoFiltro.DataPropertyName = "Tipo";
-            colTipoFiltro.HeaderText = "Tipo";
-            colTipoFiltro.Name = "colTipoFiltro";
-            colTipoFiltro.ReadOnly = true;
-            colTipoFiltro.Width = 75;
-            var colMarcaEquivalente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            colMarcaEquivalente.DataPropertyName = "Marca";
-            colMarcaEquivalente.HeaderText = "Marca";
-            colMarcaEquivalente.Name = "colMarcaEquivalente";
-            colMarcaEquivalente.ReadOnly = true;
-            colMarcaEquivalente.Width = 100;
-            var colNumeroPecaEquivalente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            colNumeroPecaEquivalente.DataPropertyName = "NumeroPeca";
-            colNumeroPecaEquivalente.HeaderText = "Número da peça";
-            colNumeroPecaEquivalente.Name = "colNumeroPecaEquivalente";
-            colNumeroPecaEquivalente.ReadOnly = true;
-            colNumeroPecaEquivalente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgvFiltrosEquivalentes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            colTipoFiltro,
-            colMarcaEquivalente,
-            colNumeroPecaEquivalente});
             // 
             // Formprincipal
             // 
@@ -444,11 +426,11 @@ namespace SmartOilChange.Forms
         private ComboBox comboBox2;
         private System.Windows.Forms.GroupBox groupBoxLubrificante;
         private System.Windows.Forms.Label labelViscosidade;
-        private System.Windows.Forms.Label labelEspecificacao;
+        private System.Windows.Forms.Label labelNormaApi;
         private System.Windows.Forms.Label labelNormaAcea;
         private System.Windows.Forms.Label labelCapacidade;
         private System.Windows.Forms.TextBox txtViscosidadeValue;
-        private System.Windows.Forms.TextBox txtEspecificacaoValue;
+        private System.Windows.Forms.TextBox txtNormaApiValue;
         private System.Windows.Forms.TextBox txtNormaAceaValue;
         private System.Windows.Forms.TextBox txtCapacidadeValue;
         private Button BotaoConsultar;

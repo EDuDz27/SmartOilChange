@@ -122,7 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database\schema.sql" />
-    <Content Include="Database\seed.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

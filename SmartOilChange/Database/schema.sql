@@ -28,11 +28,11 @@ CREATE TABLE IF NOT EXISTS MODELOS_MOTORES (
 CREATE TABLE IF NOT EXISTS ESPECIFICACOES_OLEO (
     oleo_id INTEGER PRIMARY KEY AUTOINCREMENT,
     modelo_motor_id INTEGER NOT NULL,
-    viscosidade VARCHAR(6) NOT NULL,
-    norma_api VARCHAR(50) NOT NULL,
-    norma_acea VARCHAR(50) NOT NULL,
-    capacidade_litros DECIMAL(4,2) NOT NULL,
-    observacoes TEXT NOT NULL,
+    viscosidade VARCHAR(6),
+    norma_api VARCHAR(50),
+    norma_acea VARCHAR(50),
+    capacidade_litros DECIMAL(4,2),
+    observacoes TEXT,
     FOREIGN KEY (modelo_motor_id) REFERENCES MODELOS_MOTORES(modelo_motor_id)
 );
 
@@ -49,4 +49,24 @@ CREATE TABLE IF NOT EXISTS MOTOR_FILTROS (
     filtro_id INTEGER NOT NULL,
     FOREIGN KEY (modelo_motor_id) REFERENCES MODELOS_MOTORES(modelo_motor_id),
     FOREIGN KEY (filtro_id) REFERENCES FILTROS(filtro_id)
+);
+
+CREATE TABLE IF NOT EXISTS SERVICE_LOGS (
+    logs_id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    placa VARCHAR(10),
+    oleo_utilizado VARCHAR(10) NOT NULL,
+
+    oleo_trocado BOOLEAN NOT NULL DEFAULT false,
+    filtro_trocado BOOLEAN NOT NULL DEFAULT false,
+    tampa_ok BOOLEAN NOT NULL DEFAULT false,
+    luz_oleo_ok BOOLEAN NOT NULL DEFAULT false,
+    vazamento_ok BOOLEAN NOT NULL DEFAULT false,
+    nivel_oleo_ok BOOLEAN NOT NULL DEFAULT false,
+    etiqueta_ok BOOLEAN NOT NULL DEFAULT false,
+    sobra_oleo_ok BOOLEAN NOT NULL DEFAULT false,
+
+    observacoes TEXT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

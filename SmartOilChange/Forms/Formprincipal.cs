@@ -176,6 +176,10 @@ namespace SmartOilChange.Forms
 
             PreencherLubrificante(resultado);
             PreencherFiltrosCompativeis(resultado);
+
+            // Habilitar a primeira checklist após consulta bem-sucedida
+            panelAberturaChamado.Enabled = true;
+            panelAberturaChamado.BackColor = System.Drawing.Color.White;
         }
 
         private void PreencherLubrificante(ResultadoConsulta resultado)
@@ -369,6 +373,70 @@ namespace SmartOilChange.Forms
         }
 
         private void TxtNormaAceaValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ValidarAberturaChamado();
+        }
+
+        private void ValidarAberturaChamado()
+        {
+            bool todosCheckados = chkNivelOleoAbertura.Checked &&
+                                 chkVazamentosAbertura.Checked &&
+                                 chkTampaParafusoAbertura.Checked &&
+                                 chkLuzOleoAbertura.Checked;
+
+            panelServicosRealizados.Enabled = todosCheckados;
+            panelServicosRealizados.BackColor = todosCheckados ? System.Drawing.Color.White : System.Drawing.Color.LightGray;
+
+            btnFinalizarChamado.Enabled = todosCheckados;
+            btnFinalizarChamado.BackColor = todosCheckados ? System.Drawing.Color.MediumSeaGreen : System.Drawing.Color.FromArgb(169, 169, 169);
+        }
+
+        private void BtnCancelarServico_Click(object sender, EventArgs e)
+        {
+            // Limpar checklists
+            chkNivelOleoAbertura.Checked = false;
+            chkVazamentosAbertura.Checked = false;
+            chkTampaParafusoAbertura.Checked = false;
+            chkLuzOleoAbertura.Checked = false;
+
+            chkTrocaOleoServico.Checked = false;
+            chkTrocaFiltroServico.Checked = false;
+            chkTampaParafusoServico.Checked = false;
+            chkLuzOleoServico.Checked = false;
+            chkVazamentosServico.Checked = false;
+            chkNivelOleoServico.Checked = false;
+            chkEtiquetaServico.Checked = false;
+            chkSobraOleoServico.Checked = false;
+
+            // Limpar campos da busca de veículos
+            comboBox1.SelectedIndex = 0;
+            ResetModelo();
+            ResetAno();
+            ResetMotor();
+            ResetResultados();
+
+            // Desabilitar as duas checklists
+            panelAberturaChamado.Enabled = false;
+            panelAberturaChamado.BackColor = System.Drawing.Color.LightGray;
+            panelServicosRealizados.Enabled = false;
+            panelServicosRealizados.BackColor = System.Drawing.Color.LightGray;
+
+            // Desabilitar e desbotar o botão de finalizar
+            btnFinalizarChamado.Enabled = false;
+            btnFinalizarChamado.BackColor = System.Drawing.Color.FromArgb(169, 169, 169);
+        }
+
+        private void PanelBotoes_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void GroupBoxAberturaChamado_Enter(object sender, EventArgs e)
         {
 
         }

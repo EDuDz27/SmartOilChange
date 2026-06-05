@@ -32,6 +32,7 @@ namespace SmartOilChange.Forms
         private void InitializeComponent()
         {
             this.BotaoConsultar = new System.Windows.Forms.Button();
+            this.btnBuscaLogs = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -98,6 +99,19 @@ namespace SmartOilChange.Forms
             this.BotaoConsultar.Text = "Consultar";
             this.BotaoConsultar.UseVisualStyleBackColor = false;
             this.BotaoConsultar.Click += new System.EventHandler(this.BotaoConsultar_Click);
+            // 
+            // btnBuscaLogs
+            // 
+            this.btnBuscaLogs.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.btnBuscaLogs.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.btnBuscaLogs.ForeColor = System.Drawing.Color.White;
+            this.btnBuscaLogs.Location = new System.Drawing.Point(977, 24);
+            this.btnBuscaLogs.Name = "btnBuscaLogs";
+            this.btnBuscaLogs.Size = new System.Drawing.Size(144, 30);
+            this.btnBuscaLogs.TabIndex = 10;
+            this.btnBuscaLogs.Text = "📋 Histórico";
+            this.btnBuscaLogs.UseVisualStyleBackColor = false;
+            this.btnBuscaLogs.Click += new System.EventHandler(this.BtnBuscaLogs_Click);
             // 
             // groupBox1
             // 
@@ -621,6 +635,7 @@ namespace SmartOilChange.Forms
             this.btnFinalizarChamado.TabIndex = 1;
             this.btnFinalizarChamado.Text = "Finalizar Chamado";
             this.btnFinalizarChamado.UseVisualStyleBackColor = false;
+            this.btnFinalizarChamado.Click += new System.EventHandler(this.BtnFinalizarChamado_Click);
             // 
             // Formprincipal
             // 
@@ -628,6 +643,7 @@ namespace SmartOilChange.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1164, 780);
+            this.Controls.Add(this.btnBuscaLogs);
             this.Controls.Add(this.btnFinalizarChamado);
             this.Controls.Add(this.btnCancelarServico);
             this.Controls.Add(this.panelServicosRealizados);
@@ -696,5 +712,6 @@ namespace SmartOilChange.Forms
         private System.Windows.Forms.CheckBox chkTrocaOleoServico;
         private System.Windows.Forms.Button btnCancelarServico;
         private System.Windows.Forms.Button btnFinalizarChamado;
+        private System.Windows.Forms.Button btnBuscaLogs;
     }
 }

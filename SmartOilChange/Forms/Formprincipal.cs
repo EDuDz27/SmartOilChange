@@ -440,5 +440,31 @@ namespace SmartOilChange.Forms
         {
 
         }
+
+        private void BtnFinalizarChamado_Click(object sender, EventArgs e)
+        {
+            var formFinalizar = new FormFinalizarChamado(
+                chkTrocaOleoServico.Checked,
+                chkTrocaFiltroServico.Checked,
+                chkTampaParafusoServico.Checked,
+                chkLuzOleoServico.Checked,
+                chkVazamentosServico.Checked,
+                chkNivelOleoServico.Checked,
+                chkEtiquetaServico.Checked,
+                chkSobraOleoServico.Checked,
+                txtViscosidadeValue.Text
+            );
+
+            if (formFinalizar.ShowDialog(this) == DialogResult.OK)
+            {
+                BtnCancelarServico_Click(sender, e);
+            }
+        }
+
+        private void BtnBuscaLogs_Click(object sender, EventArgs e)
+        {
+            var formBuscaLogs = new FormBuscaLogs();
+            formBuscaLogs.ShowDialog(this);
+        }
     }
 }

@@ -64,6 +64,18 @@
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\FormBuscaLogs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormBuscaLogs.Designer.cs">
+      <DependentUpon>FormBuscaLogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormFinalizarChamado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFinalizarChamado.Designer.cs">
+      <DependentUpon>FormFinalizarChamado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Formprincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +88,7 @@
     <Compile Include="Models\Motor.cs" />
     <Compile Include="Models\Modelo.cs" />
     <Compile Include="Models\Marca.cs" />
+    <Compile Include="Models\ServiceLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Repositories\AnoRepository.cs" />
@@ -84,7 +97,15 @@
     <Compile Include="Repositories\DatabaseHelper.cs" />
     <Compile Include="Repositories\ModeloRepository.cs" />
     <Compile Include="Repositories\MotorRepository.cs" />
+    <Compile Include="Repositories\ServiceLogRepository.cs" />
     <Compile Include="Utils\Mensagens.cs" />
+    <EmbeddedResource Include="Forms\FormBuscaLogs.resx">
+      <DependentUpon>FormBuscaLogs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormFinalizarChamado.resx">
+      <DependentUpon>FormFinalizarChamado.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Formprincipal.resx">
       <DependentUpon>Formprincipal.cs</DependentUpon>
       <SubType>Designer</SubType>

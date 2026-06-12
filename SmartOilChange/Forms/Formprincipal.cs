@@ -31,6 +31,7 @@ namespace SmartOilChange.Forms
         public Formprincipal()
         {
             InitializeComponent();
+            this.AutoScroll = true;
         }
 
         private void Formprincipal_Load(object sender, EventArgs e)

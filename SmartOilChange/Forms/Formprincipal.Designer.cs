@@ -478,7 +478,7 @@ namespace SmartOilChange.Forms
             this.chkVazamentosAbertura.Name = "chkVazamentosAbertura";
             this.chkVazamentosAbertura.Size = new System.Drawing.Size(184, 20);
             this.chkVazamentosAbertura.TabIndex = 1;
-            this.chkVazamentosAbertura.Text = "Vazamentos detectados?";
+            this.chkVazamentosAbertura.Text = "Vazamentos conferidos?";
             this.chkVazamentosAbertura.UseVisualStyleBackColor = true;
             this.chkVazamentosAbertura.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
             // 
